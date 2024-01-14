@@ -1,0 +1,17 @@
+{
+    "name": "seu-projeto",
+    "version": "1.0.0",
+    "description": "Servidor para chatbot com WebSocket",
+    "main": "app.js",
+    "scripts": {
+      "start": "node app.js",
+      "build": "echo 'Nenhum passo de construção necessário para este projeto'"
+    },
+    "author": "Antonio Gabriel Garcez Barbosa",
+    "license": "ISC",
+    "dependencies": {
+      "express": "^4.17.1",
+      "ws": "^7.4.5"
+    }
+  }
+  
