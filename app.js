@@ -21,7 +21,7 @@ app.post('/request', async (req, res) => {
     }
 });
 wss.on('connection', (ws, req) => {
-    const uuid = req.url.split('/')[1]; // Extrai o UUID da URL
+    const uuid = req.url.split('/connection/')[1]; // Extrai o UUID da URL
     clients[uuid] = ws;
     if (clients[uuid]) {
         clients[uuid].terminate(); // Fecha a conexão antiga, se existir
