@@ -20,9 +20,9 @@ app.post('/request', async (req, res) => {
         res.send("O Dexter não está ativo");
     }
 });
-
-wss.on('connection', (ws, request) => {
-    const uuid = getUUIDFromRequest(request); // Implemente esta função para extrair UUID
+wss.on('connection', (ws, req) => {
+    const uuid = req.url.split('/')[1]; // Extrai o UUID da URL
+    clients[uuid] = ws;
     if (clients[uuid]) {
         clients[uuid].terminate(); // Fecha a conexão antiga, se existir
     }
@@ -31,6 +31,8 @@ wss.on('connection', (ws, request) => {
     ws.on('pong', () => {
         ws.isAlive = true;
     });
+
+    // Restante do código
 });
 
 // Função para aguardar resposta do cliente
