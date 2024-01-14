@@ -45,3 +45,8 @@ function aguardarResposta(ws) {
     });
 }
 
+const PORT = process.env.PORT || 1000; // Use a porta do ambiente ou 3000 como padrão
+
+app.listen(PORT, () => {
+  console.log(`Servidor rodando na porta ${PORT}`);
+});
