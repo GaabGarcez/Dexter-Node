@@ -45,7 +45,7 @@ wss.on('connection', (ws, req) => {
         const resposta = JSON.parse(message);
         const resHttp = requisicoesPendentes[resposta.id];
         if (resHttp) {
-            resHttp.send(resposta);
+            resHttp.send(resposta.mensagem);
             delete requisicoesPendentes[resposta.id];  // Limpa a referência depois de enviar a resposta
         }
     });
