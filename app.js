@@ -20,11 +20,11 @@ app.post('/request', async (req, res) => {
         } catch (error) {
             console.error("Erro ao enviar mensagem para o cliente:", error);
             delete clients[uuid_user];
-            res.send("O Dexter não está ativo");
+            res.send("O Dexter não está em execução no seu servidor. Contate o suporte.");
         }
     } else {
         delete clients[uuid_user];
-        res.send("O Dexter não está ativo");
+        res.send("O Dexter não está em execução no seu servidor. Contate o suporte.");
     }
 });
 
@@ -43,11 +43,19 @@ wss.on('connection', (ws, req) => {
 });
 
 // Função para aguardar resposta do cliente
-function aguardarResposta(ws) {
+function aguardarResposta(ws, timeoutMs = 50000) {
     return new Promise((resolve, reject) => {
-        ws.once('message', (message) => {
+        const timer = setTimeout(() => {
+            ws.removeListener('message', onMessage);
+            reject(new Error('O Dexter não está em execução no seu servidor. Contate o suporte.'));
+        }, timeoutMs);
+
+        const onMessage = (message) => {
+            clearTimeout(timer);
             resolve(message);
-        });
+        };
+
+        ws.once('message', onMessage);
     });
 }
 
