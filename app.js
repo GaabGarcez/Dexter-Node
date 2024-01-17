@@ -43,7 +43,7 @@ wss.on('connection', (ws, req) => {
 });
 
 // Função para aguardar resposta do cliente
-function aguardarResposta(ws, timeoutMs = 50000) {
+function aguardarResposta(ws, timeoutMs = 35000) {
     return new Promise((resolve, reject) => {
         const timer = setTimeout(() => {
             ws.removeListener('message', onMessage);
