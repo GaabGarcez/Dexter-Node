@@ -11,7 +11,7 @@ const requisicoesPendentes = {};
 app.use(express.json());
 
 app.post('/request', async (req, res) => {
-    const { uuid_user, mensagem } = req.body;
+    const { uuid_user, mensagem, tipo } = req.body;
     const client = clients[uuid_user];
     const id_requisicao = uuidv4();
 
@@ -19,7 +19,7 @@ app.post('/request', async (req, res) => {
         // Atribua todas as propriedades de uma vez
         requisicoesPendentes[id_requisicao] = { res, timer: null, resolve: null };
         try {
-            client.send(JSON.stringify({ id: id_requisicao, mensagem }));
+            client.send(JSON.stringify({ id: id_requisicao, mensagem, tipo}));
             await aguardarResposta(id_requisicao, 35000); // Aguarda por 35 segundos para a resposta
         } catch (error) {
             console.error('O Dexter não está em execução no seu servidor. Contate o suporte.', error);
